@@ -1,0 +1,11 @@
+[package]
+name = "raytracing_with_rust"
+version = "0.1.0"
+authors = ["Urjasvi <urjasvisuthar@gmail.com>"]
+edition = "2018"
+
+[dependencies]
+rand = "0.6.5"
+rayon = "1.0.3"
+image = "0.21.1"
+obj = "0.9.0"
