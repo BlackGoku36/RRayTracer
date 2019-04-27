@@ -1,3 +1,4 @@
+
 pub mod raytrace;
 pub mod scenes;
 
@@ -8,15 +9,10 @@ use raytrace::camera::Camera;
 use raytrace::hitable::Hitable;
 use raytrace::hitable_list::HitableList;
 use raytrace::vec::drand48;
-
 use rayon::prelude::*;
 
 use scenes::{
     // lighted_perlin_spheres::lightted_perlin_spheres,
-    // random_spheres::{
-    //     random_scene,
-    //     moving_random_scene
-    // },
     cornell_box::{cornell_box, cornell_smoke},
     final_scene::final_scene,
     // checkered_texture::checkered_texture_scene,
@@ -49,11 +45,11 @@ fn color(r: Ray, world: &HitableList, depth: i32) -> Vec3 {
 }
 
 fn main() {
-    let nx = 300;
-    let ny = 300;
+    let nx = 400;
+    let ny = 400;
     let ns = 100;
     print!("P3\n{} {}\n255\n", nx, ny);
-    let look_from: Vec3 = Vec3::new(13.0, 2.0, 3.0);
+    let look_from: Vec3 = Vec3::new(2000.0, 2000.0, 2000.0);
     let look_at: Vec3 = Vec3::new(0.0, 0.0, 0.0);
     let dist_to_focus = 10.0;
     let aperature: f32 = 0.0;

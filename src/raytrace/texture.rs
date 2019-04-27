@@ -81,9 +81,9 @@ impl Texture for NoiseTexture {
 
 //---Image Texture------
 pub struct ImageTexture {
-    pixels: Vec<u8>,
-    nx: u32,
-    ny: u32,
+    pub pixels: Vec<u8>,
+    pub nx: u32,
+    pub ny: u32,
 }
 
 impl ImageTexture {

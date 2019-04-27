@@ -58,6 +58,15 @@ impl Vec3 {
     pub fn inverse(&self) -> Vec3 {
         Vec3::new(1.0 / self.x(), 1.0 / self.y(), 1.0 / self.z())
     }
+
+    pub fn normalize(&self) -> Vec3{
+        let inv_len = self.length().recip();
+        Vec3::new(
+            self.x() * inv_len,
+            self.y() * inv_len,
+            self.z() * inv_len,
+        )
+    }
 }
 
 impl std::ops::Index<usize> for Vec3 {

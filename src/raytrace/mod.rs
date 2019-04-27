@@ -14,3 +14,5 @@ pub mod sphere;
 pub mod texture;
 pub mod vec;
 pub mod triangle;
+pub mod mesh;
+pub mod matrix;
