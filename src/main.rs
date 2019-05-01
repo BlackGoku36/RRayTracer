@@ -67,8 +67,8 @@ fn color(r: Ray, world: &HitableList, depth: i32, map: &IBLSkyMap) -> Vec3 {
 }
 
 fn main() {
-    let nx = 1920;
-    let ny = 1080;
+    let nx = 1000;
+    let ny = 1000;
     let ns = 100;
 
     let progress_bar = ProgressBar::new((nx as usize * ny as usize/64) as u64);
@@ -77,10 +77,10 @@ fn main() {
       .template("{prefix:.white} [{elapsed_precise}] {bar:40.cyan/blue} {percent}%"));
 
     print!("P3\n{} {}\n255\n", nx, ny);
-    let look_from: Vec3 = Vec3::new(13.0, 2.0, 3.0);
-    let look_at: Vec3 = Vec3::new(0.0, 0.0, 0.0);
-    // let look_from: Vec3 = Vec3::new(278.0, 278.0, -800.0);
-    // let look_at: Vec3 = Vec3::new(278.0, 278.0, 0.0);
+    // let look_from: Vec3 = Vec3::new(13.0, 2.0, 3.0);
+    // let look_at: Vec3 = Vec3::new(0.0, 0.0, 0.0);
+    let look_from: Vec3 = Vec3::new(278.0, 278.0, -800.0);
+    let look_at: Vec3 = Vec3::new(278.0, 278.0, 0.0);
     // let look_from: Vec3 = Vec3::new(25.0, 3.0, 5.0);
     // let look_at: Vec3 = Vec3::new(0.0, 2.0, 0.0);
     let dist_to_focus = 10.0;
@@ -98,7 +98,7 @@ fn main() {
         1.0,
     );
 
-    let world = random_scene();
+    let world = triangle_scene();
     let map = IBLSkyMap::new("assets/sunrise.hdr", 3.3);
     let rows: Vec<Vec<Vec3>> = (0..ny)
         .into_par_iter()
