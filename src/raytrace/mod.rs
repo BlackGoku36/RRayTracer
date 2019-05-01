@@ -16,3 +16,4 @@ pub mod vec;
 pub mod triangle;
 pub mod mesh;
 pub mod matrix;
+pub mod skymap;

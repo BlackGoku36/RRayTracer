@@ -101,7 +101,7 @@ impl Material for Dielectric {
             reflect_prob = 1.0;
         }
         if drand48() < reflect_prob {
-            scattered = Ray::new(rec.p, reflected, r_in.time());
+            scattered = Ray::new(rec.p, reflected+Vec3::new(0.5, 0.5, 0.5), r_in.time());
         } else {
             scattered = Ray::new(rec.p, refracted, r_in.time());
         }
