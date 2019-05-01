@@ -60,8 +60,8 @@ pub fn triangle_scene() -> HitableList {
         0.73, 0.73, 0.73,
     )))));
     let light = Arc::new(DiffuseLight::new(Box::new(ConstantTexture::new(
-        Vec3::new(15.0, 15.0, 15.0),
-    ))));
+        Vec3::new(15.0, 15.0, 15.0)
+    )), Vec3::new(228.0, 0.0, 343.0)));
     world.add(FlipNormal::new(Box::new(YZ::new(
         0.0, 555.0, 0.0, 555.0, 555.0, red,
     ))));
@@ -77,7 +77,9 @@ pub fn triangle_scene() -> HitableList {
             0.2, 0.3, 0.7,
         ))))),
     ))));
-    world.add(Box::new(XZ::new(0.0, 555.0, 0.0, 555.0, 0.0, Arc::new(Metal::new(Vec3::new(0.8, 0.8, 0.9), 0.0)))));
+    world.add(Box::new(XZ::new(0.0, 555.0, 0.0, 555.0, 0.0, Arc::new(Lambertian::new(Box::new(ConstantTexture::new(Vec3::new(
+        0.73, 0.73, 0.73,
+    ))))))));
     world.add(FlipNormal::new(Box::new(XY::new(
         0.0,
         555.0,

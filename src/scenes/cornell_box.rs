@@ -23,7 +23,7 @@ pub fn cornell_box() -> HitableList {
     )))));
     let light = Arc::new(DiffuseLight::new(Box::new(ConstantTexture::new(
         Vec3::new(15.0, 15.0, 15.0),
-    ))));
+    )), Vec3::new(228.0, 0.0, 343.0)));
     world.add(FlipNormal::new(Box::new(YZ::new(
         0.0, 555.0, 0.0, 555.0, 555.0, green,
     ))));
@@ -90,14 +90,14 @@ pub fn cornell_smoke() -> HitableList {
     let white = Arc::new(Lambertian::new(Box::new(ConstantTexture::new(Vec3::new(
         0.73, 0.73, 0.73,
     )))));
-    let light = Arc::new(DiffuseLight::new(Box::new(ConstantTexture::new(
-        Vec3::new(15.0, 15.0, 15.0),
-    ))));
+    // let light = Arc::new(DiffuseLight::new(Box::new(ConstantTexture::new(
+    //     Vec3::new(15.0, 15.0, 15.0),
+    // ))));
     world.add(FlipNormal::new(Box::new(YZ::new(
         0.0, 555.0, 0.0, 555.0, 555.0, green,
     ))));
     world.add(Box::new(YZ::new(0.0, 555.0, 0.0, 555.0, 0.0, red)));
-    world.add(Box::new(XZ::new(213.0, 343.0, 227.0, 332.0, 554.0, light)));
+    // world.add(Box::new(XZ::new(213.0, 343.0, 227.0, 332.0, 554.0, light)));
     world.add(FlipNormal::new(Box::new(XZ::new(
         0.0,
         555.0,

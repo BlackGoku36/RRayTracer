@@ -9,8 +9,8 @@ pub trait Material: Sync + Send {
     fn scatter(&self, _r_in: &Ray, _rec: &HitRecord) -> Option<(Ray, Vec3)> {
         None
     }
-    fn emitted(&self, _u: f32, _v: f32, _p: Vec3) -> Vec3 {
-        Vec3::new(0.0, 0.0, 0.0)
+    fn emitted(&self, _u: f32, _v: f32, _p: Vec3) -> (Vec3, Vec3) {
+        (Vec3::new(0.0, 0.0, 0.0), Vec3::new(0.0, 0.0, 0.0))
     }
 }
 
@@ -111,11 +111,12 @@ impl Material for Dielectric {
 
 pub struct DiffuseLight {
     pub emit: Box<Texture>,
+    pub pos: Vec3
 }
 
 impl DiffuseLight {
-    pub fn new(emit: Box<Texture>) -> Self {
-        DiffuseLight { emit }
+    pub fn new(emit: Box<Texture>, pos: Vec3) -> Self {
+        DiffuseLight { emit, pos }
     }
 }
 impl Material for DiffuseLight {
@@ -123,8 +124,8 @@ impl Material for DiffuseLight {
         return None;
     }
 
-    fn emitted(&self, u: f32, v: f32, p: Vec3) -> Vec3 {
-        self.emit.value(u, v, p)
+    fn emitted(&self, u: f32, v: f32, p: Vec3) -> (Vec3, Vec3) {
+        (self.emit.value(u, v, p), self.pos)
     }
 }
 

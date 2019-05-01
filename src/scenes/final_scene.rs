@@ -49,16 +49,16 @@ pub fn final_scene() -> HitableList {
         }
     }
     world.add(BVHNode::construct(boxlist, 0.0, 1.0));
-    world.add(Box::new(XZ::new(
-        123.0,
-        423.0,
-        147.0,
-        412.0,
-        554.0,
-        Arc::new(DiffuseLight::new(Box::new(ConstantTexture::new(
-            Vec3::new(7.0, 7.0, 7.0),
-        )))),
-    )));
+    // world.add(Box::new(XZ::new(
+    //     123.0,
+    //     423.0,
+    //     147.0,
+    //     412.0,
+    //     554.0,
+    //     Arc::new(DiffuseLight::new(Box::new(ConstantTexture::new(
+    //         Vec3::new(7.0, 7.0, 7.0),
+    //     )))),
+    // )));
     world.add(Box::new(Movingsphere::new(
         center,
         center + Vec3::new(30.0, 0.0, 0.0),
