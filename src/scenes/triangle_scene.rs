@@ -1,30 +1,33 @@
 use crate::raytrace::{
+    bvh::BVHNode,
+    cube::{Cube, RotateY, Translate},
     hitable_list::HitableList,
     material::{Dielectric, DiffuseLight, Lambertian, Metal},
+    matrix::Matrix44,
+    mesh::hitable_mesh,
+    rectangle::{FlipNormal, XY, XZ, YZ},
+    texture::{ConstantTexture, ImageTexture, NoiseTexture},
     triangle::Triangle,
     vec::Vec3,
-    mesh::hitable_mesh,
-    bvh::BVHNode,
-    texture::{ConstantTexture, ImageTexture, NoiseTexture},
-    rectangle::{FlipNormal, XY, XZ, YZ},
-    cube::{Cube, RotateY, Translate},
-    matrix::Matrix44,
 };
-use std::sync::Arc;
 use std::path::Path;
+use std::sync::Arc;
 
 pub fn triangle_scene() -> HitableList {
     let mut world = HitableList::new(8);
     let bunny = hitable_mesh(
         Path::new("bunny.obj"),
-        Matrix44::translate(200.0, 0.0, 300.0)*
-        Matrix44::scale_linear(120.0) * Matrix44::rotate_y(-1.4),
+        Matrix44::translate(200.0, 0.0, 300.0)
+            * Matrix44::scale_linear(120.0)
+            * Matrix44::rotate_y(-1.4),
         Arc::new(Dielectric::new(1.5)),
     );
     let suzanne = hitable_mesh(
         Path::new("suzanne.obj"),
-        Matrix44::translate(390.0, 150.0, 300.0)*
-        Matrix44::scale_linear(110.0) * Matrix44::rotate_y(10.0)*Matrix44::rotate_x(-0.2),
+        Matrix44::translate(390.0, 150.0, 300.0)
+            * Matrix44::scale_linear(110.0)
+            * Matrix44::rotate_y(10.0)
+            * Matrix44::rotate_x(-0.2),
         Arc::new(Lambertian::new(Box::new(ConstantTexture::new(Vec3::new(
             0.7, 0.3, 0.2,
         ))))),
@@ -33,23 +36,17 @@ pub fn triangle_scene() -> HitableList {
     // let (nx, ny) = image.dimensions();
     // let pixels = image.into_raw();
     // let texture = ImageTexture::new(pixels, nx, ny);
-    world.add(
-        Translate::new(
-            Box::new(Triangle::new(
-                Vec3::new(-1.0, -1.0, -5.0), 
-                Vec3::new(1.0, -1.0, -5.0), 
-                Vec3::new(0.0, 1.0, -5.0), 
-                Arc::new(Metal::new(Vec3::new(0.8, 0.8, 0.9), 0.1)),
-            )),
-            Vec3::new(200.0, 0.0, 300.0)
-        )
-    );
-    world.add(
-        BVHNode::construct(bunny, 0.0, 1.0),
-    );
-    world.add(
-        BVHNode::construct(suzanne, 0.0, 1.0),
-    );
+    world.add(Translate::new(
+        Box::new(Triangle::new(
+            Vec3::new(-1.0, -1.0, -5.0),
+            Vec3::new(1.0, -1.0, -5.0),
+            Vec3::new(0.0, 1.0, -5.0),
+            Arc::new(Metal::new(Vec3::new(0.8, 0.8, 0.9), 0.1)),
+        )),
+        Vec3::new(200.0, 0.0, 300.0),
+    ));
+    world.add(BVHNode::construct(bunny, 0.0, 1.0));
+    world.add(BVHNode::construct(suzanne, 0.0, 1.0));
     let red = Arc::new(Lambertian::new(Box::new(ConstantTexture::new(Vec3::new(
         0.65, 0.05, 0.05,
     )))));
@@ -59,9 +56,10 @@ pub fn triangle_scene() -> HitableList {
     let white = Arc::new(Lambertian::new(Box::new(ConstantTexture::new(Vec3::new(
         0.73, 0.73, 0.73,
     )))));
-    let light = Arc::new(DiffuseLight::new(Box::new(ConstantTexture::new(
-        Vec3::new(15.0, 15.0, 15.0)
-    )), Vec3::new(228.0, 0.0, 343.0)));
+    let light = Arc::new(DiffuseLight::new(
+        Box::new(ConstantTexture::new(Vec3::new(15.0, 15.0, 15.0))),
+        Vec3::new(228.0, 0.0, 343.0),
+    ));
     world.add(FlipNormal::new(Box::new(YZ::new(
         0.0, 555.0, 0.0, 555.0, 555.0, red,
     ))));
@@ -77,9 +75,16 @@ pub fn triangle_scene() -> HitableList {
             0.2, 0.3, 0.7,
         ))))),
     ))));
-    world.add(Box::new(XZ::new(0.0, 555.0, 0.0, 555.0, 0.0, Arc::new(Lambertian::new(Box::new(ConstantTexture::new(Vec3::new(
-        0.73, 0.73, 0.73,
-    ))))))));
+    world.add(Box::new(XZ::new(
+        0.0,
+        555.0,
+        0.0,
+        555.0,
+        0.0,
+        Arc::new(Lambertian::new(Box::new(ConstantTexture::new(Vec3::new(
+            0.73, 0.73, 0.73,
+        ))))),
+    )));
     world.add(FlipNormal::new(Box::new(XY::new(
         0.0,
         555.0,

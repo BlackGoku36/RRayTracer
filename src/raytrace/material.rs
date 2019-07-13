@@ -101,7 +101,7 @@ impl Material for Dielectric {
             reflect_prob = 1.0;
         }
         if drand48() < reflect_prob {
-            scattered = Ray::new(rec.p, reflected+Vec3::new(0.5, 0.5, 0.5), r_in.time());
+            scattered = Ray::new(rec.p, reflected + Vec3::new(0.5, 0.5, 0.5), r_in.time());
         } else {
             scattered = Ray::new(rec.p, refracted, r_in.time());
         }
@@ -111,7 +111,7 @@ impl Material for Dielectric {
 
 pub struct DiffuseLight {
     pub emit: Box<Texture>,
-    pub pos: Vec3
+    pub pos: Vec3,
 }
 
 impl DiffuseLight {
@@ -121,7 +121,7 @@ impl DiffuseLight {
 }
 impl Material for DiffuseLight {
     fn scatter(&self, _r_in: &Ray, _rec: &HitRecord) -> Option<(Ray, Vec3)> {
-        return None;
+        None
     }
 
     fn emitted(&self, u: f32, v: f32, p: Vec3) -> (Vec3, Vec3) {

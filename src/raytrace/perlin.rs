@@ -1,5 +1,6 @@
 use super::vec::{drand48, Vec3};
 
+#[derive(Default)]
 pub struct Perlin {
     pub perm_x: Vec<usize>,
     pub perm_y: Vec<usize>,

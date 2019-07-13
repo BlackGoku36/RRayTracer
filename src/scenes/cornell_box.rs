@@ -4,8 +4,8 @@ use crate::raytrace::{
     hitable_list::HitableList,
     material::{DiffuseLight, Lambertian},
     rectangle::{FlipNormal, XY, XZ, YZ},
-    triangle::Triangle,
     texture::ConstantTexture,
+    triangle::Triangle,
     vec::Vec3,
 };
 use std::sync::Arc;
@@ -21,9 +21,10 @@ pub fn cornell_box() -> HitableList {
     let white = Arc::new(Lambertian::new(Box::new(ConstantTexture::new(Vec3::new(
         0.73, 0.73, 0.73,
     )))));
-    let light = Arc::new(DiffuseLight::new(Box::new(ConstantTexture::new(
-        Vec3::new(15.0, 15.0, 15.0),
-    )), Vec3::new(228.0, 0.0, 343.0)));
+    let light = Arc::new(DiffuseLight::new(
+        Box::new(ConstantTexture::new(Vec3::new(15.0, 15.0, 15.0))),
+        Vec3::new(228.0, 0.0, 343.0),
+    ));
     world.add(FlipNormal::new(Box::new(YZ::new(
         0.0, 555.0, 0.0, 555.0, 555.0, green,
     ))));

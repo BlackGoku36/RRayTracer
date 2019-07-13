@@ -23,11 +23,10 @@ pub fn lightted_perlin_spheres() -> HitableList {
     world.add(Box::new(Sphere::new(
         Vec3::new(0.0, 7.0, 0.0),
         2.0,
-        Arc::new(
-            DiffuseLight::new(Box::new(ConstantTexture::new(
-                Vec3::new(4.0, 4.0, 4.0),
-            )), Vec3::new(0.0, 7.0, 0.0))
-        ),
+        Arc::new(DiffuseLight::new(
+            Box::new(ConstantTexture::new(Vec3::new(4.0, 4.0, 4.0))),
+            Vec3::new(0.0, 7.0, 0.0),
+        )),
     )));
     world.add(Box::new(XY::new(
         3.0,
@@ -35,11 +34,10 @@ pub fn lightted_perlin_spheres() -> HitableList {
         1.0,
         3.0,
         -2.0,
-        Arc::new(
-            DiffuseLight::new(Box::new(ConstantTexture::new(
-                Vec3::new(4.0, 4.0, 4.0),
-            )), Vec3::new(5.0, 3.0, 0.0))
-        ),
+        Arc::new(DiffuseLight::new(
+            Box::new(ConstantTexture::new(Vec3::new(4.0, 4.0, 4.0))),
+            Vec3::new(5.0, 3.0, 0.0),
+        )),
     )));
     world
 }

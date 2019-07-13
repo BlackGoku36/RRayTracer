@@ -1,5 +1,5 @@
-use std::ops::{Mul, Index, IndexMut};
 use super::vec::Vec3;
+use std::ops::{Index, IndexMut, Mul};
 
 #[derive(Clone, Debug, Copy)]
 pub struct Matrix44 {
@@ -79,7 +79,7 @@ impl Matrix44 {
 
     pub fn inverse(&self) -> Matrix44 {
         let mut s = Matrix44::identity();
-        let mut t = self.clone();
+        let mut t = *self;
         // Forward elimination
         for i in 0..3 {
             let mut pivot = i;
@@ -141,7 +141,7 @@ impl Matrix44 {
             }
         }
 
-        return s;
+        s
     }
 }
 

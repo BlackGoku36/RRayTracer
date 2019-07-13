@@ -1,31 +1,28 @@
-
 pub mod raytrace;
 pub mod scenes;
 
 use raytrace::ray::Ray;
 use raytrace::vec::Vec3;
 
+use indicatif::{ProgressBar, ProgressStyle};
+use rayon::prelude::*;
 use raytrace::camera::Camera;
 use raytrace::hitable::Hitable;
 use raytrace::hitable_list::HitableList;
-use raytrace::vec::drand48;
-use raytrace::skymap::IBLSkyMap;
 use raytrace::skymap::radiance;
-use rayon::prelude::*;
-use indicatif::{
-    ProgressBar, ProgressStyle,
-};
+use raytrace::skymap::IBLSkyMap;
+use raytrace::vec::drand48;
 
 use scenes::{
-    lighted_perlin_spheres::lightted_perlin_spheres,
     cornell_box::{cornell_box, cornell_smoke},
     final_scene::final_scene,
+    lighted_perlin_spheres::lightted_perlin_spheres,
     // checkered_texture::checkered_texture_scene,
     // default_scene::default_scene,
     perlin_spheres::perlin_spheres,
+    random_spheres::random_scene,
     textured_sphere::textured_spheres,
     triangle_scene::triangle_scene,
-    random_spheres::random_scene,
 };
 
 fn color(r: Ray, world: &HitableList, depth: i32, map: &IBLSkyMap) -> Vec3 {
@@ -36,13 +33,9 @@ fn color(r: Ray, world: &HitableList, depth: i32, map: &IBLSkyMap) -> Vec3 {
             }
             let (mut emitted, lpos) = rec.material.emitted(rec.u, rec.v, rec.p);
             let surface_normal = -rec.normal;
-            let direction_to_light = (lpos-rec.p).normalize();
-            let shadow_ray = Ray::new(
-                rec.p+(surface_normal*0.001), 
-                direction_to_light, 
-                0.0
-            );
-            match world.hit(shadow_ray, 0.001, std::f32::MAX){
+            let direction_to_light = (lpos - rec.p).normalize();
+            let shadow_ray = Ray::new(rec.p + (surface_normal * 0.001), direction_to_light, 0.0);
+            match world.hit(shadow_ray, 0.001, std::f32::MAX) {
                 Some(_l) => {
                     emitted = emitted;
                 }
@@ -67,22 +60,20 @@ fn color(r: Ray, world: &HitableList, depth: i32, map: &IBLSkyMap) -> Vec3 {
 }
 
 fn main() {
-    let nx = 1000;
-    let ny = 1000;
-    let ns = 100;
+    let nx = 500;
+    let ny = 500;
+    let ns = 10;
 
-    let progress_bar = ProgressBar::new((nx as usize * ny as usize/64) as u64);
+    let progress_bar = ProgressBar::new((nx as usize * ny as usize / 64) as u64);
     progress_bar.set_prefix("Tracing some rays");
-    progress_bar.set_style(ProgressStyle::default_bar()
-      .template("{prefix:.white} [{elapsed_precise}] {bar:40.cyan/blue} {percent}%"));
+    progress_bar.set_style(
+        ProgressStyle::default_bar()
+            .template("{prefix:.white} [{elapsed_precise}] {bar:40.cyan/blue} {percent}%"),
+    );
 
     print!("P3\n{} {}\n255\n", nx, ny);
-    // let look_from: Vec3 = Vec3::new(13.0, 2.0, 3.0);
-    // let look_at: Vec3 = Vec3::new(0.0, 0.0, 0.0);
     let look_from: Vec3 = Vec3::new(278.0, 278.0, -800.0);
     let look_at: Vec3 = Vec3::new(278.0, 278.0, 0.0);
-    // let look_from: Vec3 = Vec3::new(25.0, 3.0, 5.0);
-    // let look_at: Vec3 = Vec3::new(0.0, 2.0, 0.0);
     let dist_to_focus = 10.0;
     let aperature: f32 = 0.0;
 
@@ -98,7 +89,7 @@ fn main() {
         1.0,
     );
 
-    let world = triangle_scene();
+    let world = random_scene();
     let map = IBLSkyMap::new("assets/sunrise.hdr", 3.3);
     let rows: Vec<Vec<Vec3>> = (0..ny)
         .into_par_iter()
@@ -114,7 +105,7 @@ fn main() {
                         let r = cam.get_ray(u, v);
                         col += color(r, &world, 0, &map);
                     }
-                    if i % 64 == 0{
+                    if i % 64 == 0 {
                         progress_bar.inc(1);
                     }
                     col /= ns as f32;
@@ -125,11 +116,16 @@ fn main() {
                 .collect()
         })
         .collect();
-        progress_bar.finish_with_message("finished");
+    progress_bar.finish_with_message("finished");
 
     for r in rows {
         for col in r {
-            print!("{} {} {}\n", col.r().min(255.0) as i32, col.g().min(255.0) as i32, col.b().min(255.0) as i32);
+            print!(
+                "{} {} {}\n",
+                col.r().min(255.0) as i32,
+                col.g().min(255.0) as i32,
+                col.b().min(255.0) as i32
+            );
         }
     }
 }

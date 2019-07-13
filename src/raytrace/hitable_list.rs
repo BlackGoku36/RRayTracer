@@ -23,18 +23,15 @@ impl Hitable for HitableList {
         let mut closest_so_far = t_max;
         for i in &self.objects {
             let temp_result = i.hit(r, t_min, closest_so_far);
-            match temp_result {
-                Some(rec) => {
-                    closest_so_far = rec.t;
-                    hit_anything = Some(rec);
-                }
-                None => {}
+            if let Some(rec) = temp_result {
+                closest_so_far = rec.t;
+                hit_anything = Some(rec);
             }
         }
         hit_anything
     }
     fn bounding_box(&self, t0: f32, t1: f32) -> Option<AABB> {
-        if self.objects.len() < 1 {
+        if self.objects.is_empty() {
             return None;
         }
 

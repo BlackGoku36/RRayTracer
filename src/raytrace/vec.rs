@@ -59,13 +59,9 @@ impl Vec3 {
         Vec3::new(1.0 / self.x(), 1.0 / self.y(), 1.0 / self.z())
     }
 
-    pub fn normalize(&self) -> Vec3{
+    pub fn normalize(&self) -> Vec3 {
         let inv_len = self.length().recip();
-        Vec3::new(
-            self.x() * inv_len,
-            self.y() * inv_len,
-            self.z() * inv_len,
-        )
+        Vec3::new(self.x() * inv_len, self.y() * inv_len, self.z() * inv_len)
     }
 }
 
@@ -238,7 +234,7 @@ pub fn random_in_unit_sphere() -> Vec3 {
         p = 2.0 * Vec3::new(drand48(), drand48(), drand48()) - Vec3::new(1.0, 1.0, 1.0);
         p.squared_length() >= 1.0
     } {}
-    return p;
+    p
 }
 
 pub fn get_sphere_uv(p: Vec3) -> (f32, f32) {

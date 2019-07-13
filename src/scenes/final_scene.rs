@@ -23,7 +23,9 @@ pub fn final_scene() -> HitableList {
 
     let nb = 18;
 
-    let image = image::open("earth.png").expect("Can't find image").to_rgb();
+    let image = image::open("assets/earth.png")
+        .expect("Can't find image")
+        .to_rgb();
     let (nx, ny) = image.dimensions();
     let pixels = image.into_raw();
     let texture = ImageTexture::new(pixels, nx, ny);
