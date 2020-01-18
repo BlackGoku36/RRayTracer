@@ -38,5 +38,5 @@ pub fn radiance(map: &IBLSkyMap, r: Ray) -> Vec3 {
     let y = (height as f32 * v).floor() as usize;
     let index = y * width + x;
     let col = map.hdr_image[index % all];
-    Vec3::new(col.data[0] as f32, col.data[1] as f32, col.data[2] as f32)
+    Vec3::new(col[0], col[1], col[2])
 }
