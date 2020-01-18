@@ -1,6 +1,6 @@
 use crate::raytrace::{
     hitable_list::HitableList, material::Lambertian, sphere::Sphere, texture::ImageTexture,
-    texture::NoiseTexture, vec::Vec3,
+    vec::Vec3,
 };
 
 use image;

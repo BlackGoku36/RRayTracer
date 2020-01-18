@@ -12,11 +12,11 @@ pub struct XY {
     y0: f32,
     y1: f32,
     k: f32,
-    material: Arc<Material>,
+    material: Arc<dyn Material>,
 }
 
 impl XY {
-    pub fn new(x0: f32, x1: f32, y0: f32, y1: f32, k: f32, material: Arc<Material>) -> Self {
+    pub fn new(x0: f32, x1: f32, y0: f32, y1: f32, k: f32, material: Arc<dyn Material>) -> Self {
         XY {
             x0,
             x1,
@@ -62,11 +62,11 @@ pub struct XZ {
     z0: f32,
     z1: f32,
     k: f32,
-    material: Arc<Material>,
+    material: Arc<dyn Material>,
 }
 
 impl XZ {
-    pub fn new(x0: f32, x1: f32, z0: f32, z1: f32, k: f32, material: Arc<Material>) -> Self {
+    pub fn new(x0: f32, x1: f32, z0: f32, z1: f32, k: f32, material: Arc<dyn Material>) -> Self {
         XZ {
             x0,
             x1,
@@ -112,11 +112,11 @@ pub struct YZ {
     z0: f32,
     z1: f32,
     k: f32,
-    material: Arc<Material>,
+    material: Arc<dyn Material>,
 }
 
 impl YZ {
-    pub fn new(y0: f32, y1: f32, z0: f32, z1: f32, k: f32, material: Arc<Material>) -> Self {
+    pub fn new(y0: f32, y1: f32, z0: f32, z1: f32, k: f32, material: Arc<dyn Material>) -> Self {
         YZ {
             y0,
             y1,
@@ -157,11 +157,11 @@ impl Hitable for YZ {
 }
 
 pub struct FlipNormal {
-    obj: Box<Hitable>,
+    obj: Box<dyn Hitable>,
 }
 
 impl FlipNormal {
-    pub fn new(obj: Box<Hitable>) -> Box<Self> {
+    pub fn new(obj: Box<dyn Hitable>) -> Box<Self> {
         Box::new(FlipNormal { obj })
     }
 }

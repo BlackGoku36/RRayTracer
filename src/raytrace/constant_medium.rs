@@ -9,13 +9,13 @@ use std::f32::{MAX, MIN};
 use std::sync::Arc;
 
 pub struct ConstantMedium {
-    boundry: Box<Hitable>,
+    boundry: Box<dyn Hitable>,
     density: f32,
-    phase_function: Arc<Material>,
+    phase_function: Arc<dyn Material>,
 }
 
 impl ConstantMedium {
-    pub fn new(boundry: Box<Hitable>, density: f32, texture: Box<Texture>) -> Box<Self> {
+    pub fn new(boundry: Box<dyn Hitable>, density: f32, texture: Box<dyn Texture>) -> Box<Self> {
         Box::new(ConstantMedium {
             boundry,
             density,

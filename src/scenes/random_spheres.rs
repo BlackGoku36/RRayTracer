@@ -14,7 +14,7 @@ use std::sync::Arc;
 pub fn random_scene() -> HitableList {
     let n = 500;
     let mut world = HitableList::new(n + 1);
-    let mut spherelist: Vec<Box<Hitable>> = vec![];
+    let mut spherelist: Vec<Box<dyn Hitable>> = vec![];
     world.add(Box::new(Sphere::new(
         Vec3::new(0.0, -1000.0, 0.0),
         1000.0,

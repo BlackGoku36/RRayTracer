@@ -1,20 +1,20 @@
 extern crate tobj;
 
-use super::aabb::AABB;
+// use super::aabb::AABB;
 use super::hitable::Hitable;
 use super::material::*;
 use super::matrix::Matrix44;
-use super::ray::Ray;
+// use super::ray::Ray;
 use super::triangle::Triangle;
 use super::vec::Vec3;
 use std::path::Path;
 
 use std::sync::Arc;
 
-pub fn hitable_mesh(path: &Path, matrix: Matrix44, material: Arc<Material>) -> Vec<Box<Hitable>> {
+pub fn hitable_mesh(path: &Path, matrix: Matrix44, material: Arc<dyn Material>) -> Vec<Box<dyn Hitable>> {
     let obj = tobj::load_obj(path);
-    let (models, mtls) = obj.unwrap();
-    let mut world: Vec<Box<Hitable>> = vec![];
+    let (models, _mtls) = obj.unwrap();
+    let mut world: Vec<Box<dyn Hitable>> = vec![];
 
     for m in models.iter() {
         let mesh = &m.mesh;

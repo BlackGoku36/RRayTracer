@@ -11,11 +11,11 @@ pub struct Triangle {
     v1: Vec3,
     v2: Vec3,
     normal: Vec3,
-    material: Arc<Material>,
+    material: Arc<dyn Material>,
 }
 
 impl Triangle {
-    pub fn new(v0: Vec3, v1: Vec3, v2: Vec3, material: Arc<Material>) -> Self {
+    pub fn new(v0: Vec3, v1: Vec3, v2: Vec3, material: Arc<dyn Material>) -> Self {
         Triangle {
             v0,
             v1,
@@ -24,7 +24,7 @@ impl Triangle {
             material,
         }
     }
-    pub fn new_normal(v0: Vec3, v1: Vec3, v2: Vec3, normal: Vec3, material: Arc<Material>) -> Self {
+    pub fn new_normal(v0: Vec3, v1: Vec3, v2: Vec3, normal: Vec3, material: Arc<dyn Material>) -> Self {
         Triangle {
             v0,
             v1,

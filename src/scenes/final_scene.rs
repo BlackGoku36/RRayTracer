@@ -4,9 +4,8 @@ use crate::raytrace::{
     cube::{Cube, RotateY, Translate},
     hitable::Hitable,
     hitable_list::HitableList,
-    material::{Dielectric, DiffuseLight, Lambertian, Metal},
+    material::{Dielectric, Lambertian, Metal},
     moving_sphere::Movingsphere,
-    rectangle::XZ,
     sphere::Sphere,
     texture::{ConstantTexture, ImageTexture, NoiseTexture},
     vec::{drand48, Vec3},
@@ -16,8 +15,8 @@ use std::sync::Arc;
 
 pub fn final_scene() -> HitableList {
     let mut world = HitableList::new(30);
-    let mut boxlist: Vec<Box<Hitable>> = vec![];
-    let mut boxlist2: Vec<Box<Hitable>> = vec![];
+    let mut boxlist: Vec<Box<dyn Hitable>> = vec![];
+    let mut boxlist2: Vec<Box<dyn Hitable>> = vec![];
 
     let center = Vec3::new(400.0, 400.0, 200.0);
 

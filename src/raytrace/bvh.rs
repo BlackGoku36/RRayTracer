@@ -5,16 +5,16 @@ use super::ray::Ray;
 use rand::Rng;
 
 pub struct BVHNode {
-    left: Box<Hitable>,
-    right: Box<Hitable>,
+    left: Box<dyn Hitable>,
+    right: Box<dyn Hitable>,
     bbox: AABB,
 }
 
 impl BVHNode {
-    pub fn new(bbox: AABB, left: Box<Hitable>, right: Box<Hitable>) -> Self {
+    pub fn new(bbox: AABB, left: Box<dyn Hitable>, right: Box<dyn Hitable>) -> Self {
         BVHNode { left, right, bbox }
     }
-    pub fn construct(mut hitable_list: Vec<Box<Hitable>>, t0: f32, t1: f32) -> Box<Hitable> {
+    pub fn construct(mut hitable_list: Vec<Box<dyn Hitable>>, t0: f32, t1: f32) -> Box<dyn Hitable> {
         let axis = rand::thread_rng().gen_range(0, 3);
         hitable_list.sort_by(|a, b| {
             let left_hit = a.required_bounding_box(0.0, 0.0).min;

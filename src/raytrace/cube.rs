@@ -17,7 +17,7 @@ pub struct Cube {
 }
 
 impl Cube {
-    pub fn new(p0: Vec3, p1: Vec3, material: Arc<Material>) -> Self {
+    pub fn new(p0: Vec3, p1: Vec3, material: Arc<dyn Material>) -> Self {
         let mut cuboid = HitableList::new(6);
         cuboid.add(Box::new(XY::new(
             p0.x(),
@@ -86,12 +86,12 @@ impl Hitable for Cube {
     }
 }
 pub struct Translate {
-    p: Box<Hitable>,
+    p: Box<dyn Hitable>,
     displacement: Vec3,
 }
 
 impl Translate {
-    pub fn new(p: Box<Hitable>, displacement: Vec3) -> Box<Self> {
+    pub fn new(p: Box<dyn Hitable>, displacement: Vec3) -> Box<Self> {
         Box::new(Translate { p, displacement })
     }
 }
@@ -119,7 +119,7 @@ impl Hitable for Translate {
 }
 
 pub struct RotateY {
-    p: Box<Hitable>,
+    p: Box<dyn Hitable>,
     angle: f32,
     bbox: Option<AABB>,
     sin_theta: f32,
@@ -127,7 +127,7 @@ pub struct RotateY {
 }
 
 impl RotateY {
-    pub fn new(p: Box<Hitable>, angle: f32) -> Box<Self> {
+    pub fn new(p: Box<dyn Hitable>, angle: f32) -> Box<Self> {
         let radians = (PI / 180.0) * angle;
         let sin_theta = radians.sin();
         let cos_theta = radians.cos();

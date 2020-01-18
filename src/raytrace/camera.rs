@@ -37,9 +37,7 @@ impl Camera {
         let w = Vec3::unit_vector(look_from - look_at);
         let u = Vec3::unit_vector(Vec3::cross(vup, w));
         let v = Vec3::cross(w, u);
-        let mut lower_left_corner = Vec3::new(-half_width, -half_height, -1.0);
-        lower_left_corner =
-            origin - half_width * focus_dist * u - half_height * focus_dist * v - focus_dist * w;
+        let lower_left_corner = origin - half_width * focus_dist * u - half_height * focus_dist * v - focus_dist * w;
         let horizontal = 2.0 * half_width * focus_dist * u;
         let vertical = 2.0 * half_height * focus_dist * v;
 

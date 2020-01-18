@@ -12,7 +12,7 @@ pub struct Movingsphere {
     pub t0: f32,
     pub t1: f32,
     pub radius: f32,
-    pub material: Arc<Material>,
+    pub material: Arc<dyn Material>,
 }
 
 impl Movingsphere {
@@ -22,7 +22,7 @@ impl Movingsphere {
         t0: f32,
         t1: f32,
         radius: f32,
-        material: Arc<Material>,
+        material: Arc<dyn Material>,
     ) -> Self {
         Movingsphere {
             center0,

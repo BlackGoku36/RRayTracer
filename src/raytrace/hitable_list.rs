@@ -3,7 +3,7 @@ use super::hitable::{HitRecord, Hitable};
 use super::ray::Ray;
 
 pub struct HitableList {
-    pub objects: Vec<Box<Hitable>>,
+    pub objects: Vec<Box<dyn Hitable>>,
 }
 
 impl HitableList {
@@ -12,7 +12,7 @@ impl HitableList {
             objects: Vec::with_capacity(list_size),
         }
     }
-    pub fn add(&mut self, sphere: Box<Hitable>) {
+    pub fn add(&mut self, sphere: Box<dyn Hitable>) {
         self.objects.push(sphere);
     }
 }

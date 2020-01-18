@@ -5,7 +5,7 @@ use crate::raytrace::{
     material::{DiffuseLight, Lambertian},
     rectangle::{FlipNormal, XY, XZ, YZ},
     texture::ConstantTexture,
-    triangle::Triangle,
+    // triangle::Triangle,
     vec::Vec3,
 };
 use std::sync::Arc;

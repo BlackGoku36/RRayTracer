@@ -15,11 +15,11 @@ pub trait Material: Sync + Send {
 }
 
 pub struct Lambertian {
-    pub albedo: Box<Texture>,
+    pub albedo: Box<dyn Texture>,
 }
 
 impl Lambertian {
-    pub fn new(albedo: Box<Texture>) -> Self {
+    pub fn new(albedo: Box<dyn Texture>) -> Self {
         Lambertian { albedo }
     }
 }
@@ -110,12 +110,12 @@ impl Material for Dielectric {
 }
 
 pub struct DiffuseLight {
-    pub emit: Box<Texture>,
+    pub emit: Box<dyn Texture>,
     pub pos: Vec3,
 }
 
 impl DiffuseLight {
-    pub fn new(emit: Box<Texture>, pos: Vec3) -> Self {
+    pub fn new(emit: Box<dyn Texture>, pos: Vec3) -> Self {
         DiffuseLight { emit, pos }
     }
 }
@@ -130,11 +130,11 @@ impl Material for DiffuseLight {
 }
 
 pub struct Isotropic {
-    pub texture: Box<Texture>,
+    pub texture: Box<dyn Texture>,
 }
 
 impl Isotropic {
-    pub fn new(texture: Box<Texture>) -> Arc<Self> {
+    pub fn new(texture: Box<dyn Texture>) -> Arc<Self> {
         Arc::new(Isotropic { texture })
     }
 }

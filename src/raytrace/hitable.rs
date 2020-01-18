@@ -11,7 +11,7 @@ pub struct HitRecord {
     pub v: f32,
     pub p: Vec3,
     pub normal: Vec3,
-    pub material: Arc<Material>,
+    pub material: Arc<dyn Material>,
 }
 
 pub trait Hitable: Sync + Send {

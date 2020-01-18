@@ -1,12 +1,12 @@
 use crate::raytrace::{
     bvh::BVHNode,
-    cube::{Cube, RotateY, Translate},
+    cube::Translate,
     hitable_list::HitableList,
     material::{Dielectric, DiffuseLight, Lambertian, Metal},
     matrix::Matrix44,
     mesh::hitable_mesh,
     rectangle::{FlipNormal, XY, XZ, YZ},
-    texture::{ConstantTexture, ImageTexture, NoiseTexture},
+    texture::ConstantTexture,
     triangle::Triangle,
     vec::Vec3,
 };
@@ -53,7 +53,7 @@ pub fn triangle_scene() -> HitableList {
     let green = Arc::new(Lambertian::new(Box::new(ConstantTexture::new(Vec3::new(
         0.12, 0.45, 0.15,
     )))));
-    let white = Arc::new(Lambertian::new(Box::new(ConstantTexture::new(Vec3::new(
+    let _white = Arc::new(Lambertian::new(Box::new(ConstantTexture::new(Vec3::new(
         0.73, 0.73, 0.73,
     )))));
     let light = Arc::new(DiffuseLight::new(
